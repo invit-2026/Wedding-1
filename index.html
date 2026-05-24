@@ -1,1 +1,571 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>The Wedding Invitation</title>
+  
+  <!-- Fonts: Cormorant Garamond (Elegant Serif) & Montserrat (Clean Sans) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      /* Elegant Nude & Gold Palette */
+      --bg-color: #faf9f6;       /* Off-white */
+      --text-main: #4a403a;      /* Dark Taupe */
+      --text-light: #8c7b70;     /* Light Taupe */
+      --accent-gold: #c5a059;    /* Muted Gold */
+      --accent-blush: #e6dcd3;   /* Soft Blush */
+      --white: #ffffff;
+      
+      --font-serif: 'Cormorant Garamond', serif;
+      --font-sans: 'Montserrat', sans-serif;
+      
+      --shadow-soft: 0 10px 40px rgba(74, 64, 58, 0.08);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    
+    html { scroll-behavior: smooth; }
+    
+    body {
+      background-color: var(--bg-color);
+      color: var(--text-main);
+      font-family: var(--font-sans);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* --- UTILITIES --- */
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    .section-padding {
+      padding: 5rem 0;
+    }
+
+    h1, h2, h3 {
+      font-family: var(--font-serif);
+      font-weight: 400;
+    }
+
+    .gold-text { color: var(--accent-gold); }
+    
+    .divider {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 2rem auto;
+      width: 100%;
+      max-width: 300px;
+    }
+    
+    .divider::before, .divider::after {
+      content: "";
+      flex: 1;
+      height: 1px;
+      background: var(--accent-gold);
+      opacity: 0.5;
+    }
+    
+    .divider span {
+      padding: 0 15px;
+      color: var(--accent-gold);
+      font-size: 1.5rem;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 1rem 2.5rem;
+      background-color: var(--text-main);
+      color: var(--white);
+      text-decoration: none;
+      font-family: var(--font-sans);
+      font-size: 0.9rem;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      transition: all 0.3s ease;
+      border: 1px solid var(--text-main);
+      cursor: pointer;
+    }
+
+    .btn:hover {
+      background-color: transparent;
+      color: var(--text-main);
+    }
+
+    .btn-outline {
+      background-color: transparent;
+      color: var(--text-main);
+      border: 1px solid var(--text-main);
+    }
+
+    .btn-outline:hover {
+      background-color: var(--text-main);
+      color: var(--white);
+    }
+
+    /* --- HERO SECTION --- */
+    .hero {
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      background: linear-gradient(rgba(250, 249, 246, 0.85), rgba(250, 249, 246, 0.95)), 
+                  url('https://images.unsplash.com/photo-1519741497674-611481863552?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80');
+      background-size: cover;
+      background-position: center;
+      position: relative;
+    }
+
+    .hero-pre {
+      font-family: var(--font-sans);
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      font-size: 0.9rem;
+      color: var(--text-light);
+      margin-bottom: 1.5rem;
+    }
+
+    .hero-names {
+      font-size: clamp(3rem, 8vw, 6rem);
+      line-height: 1.1;
+      margin-bottom: 1rem;
+      color: var(--text-main);
+    }
+
+    .hero-date {
+      font-family: var(--font-serif);
+      font-size: 1.8rem;
+      font-style: italic;
+      color: var(--accent-gold);
+      margin-top: 1rem;
+    }
+
+    /* --- COUNTDOWN --- */
+    .countdown-wrapper {
+      background-color: var(--white);
+      padding: 3rem 0;
+      box-shadow: var(--shadow-soft);
+      margin-top: -3rem; /* Overlap hero */
+      position: relative;
+      z-index: 10;
+      border-radius: 4px;
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .countdown-grid {
+      display: flex;
+      justify-content: space-around;
+      text-align: center;
+    }
+
+    .time-box .number {
+      font-family: var(--font-serif);
+      font-size: 2.5rem;
+      color: var(--text-main);
+      display: block;
+    }
+
+    .time-box .label {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--text-light);
+    }
+
+    /* --- STORY / INTRO --- */
+    .intro {
+      text-align: center;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    
+    .intro p {
+      font-size: 1.1rem;
+      color: var(--text-light);
+      margin-top: 1rem;
+    }
+
+    /* --- TIMELINE & LOCATION --- */
+    .events-section {
+      background-color: var(--white);
+    }
+
+    .event-card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: 2rem;
+      border: 1px solid var(--accent-blush);
+      border-radius: 8px;
+      transition: transform 0.3s ease;
+      height: 100%;
+    }
+
+    .event-card:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-soft);
+    }
+
+    .event-icon {
+      font-size: 2rem;
+      color: var(--accent-gold);
+      margin-bottom: 1rem;
+    }
+
+    .event-title {
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+      color: var(--text-main);
+    }
+
+    .event-time {
+      font-family: var(--font-sans);
+      font-weight: 500;
+      color: var(--accent-gold);
+      margin-bottom: 1rem;
+      font-size: 1.1rem;
+    }
+
+    .event-location {
+      font-size: 1.2rem;
+      font-weight: 500;
+      margin-bottom: 0.5rem;
+    }
+
+    .event-address {
+      color: var(--text-light);
+      font-size: 0.95rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .map-container {
+      width: 100%;
+      height: 250px;
+      background-color: #eee;
+      border-radius: 4px;
+      overflow: hidden;
+      margin-top: auto;
+    }
+    
+    iframe {
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+
+    .events-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 3rem;
+      margin-top: 3rem;
+    }
+
+    /* --- RSVP SECTION --- */
+    .rsvp-section {
+      background-color: var(--bg-color);
+      text-align: center;
+    }
+
+    .rsvp-form-container {
+      background: var(--white);
+      padding: 3rem;
+      border-radius: 8px;
+      box-shadow: var(--shadow-soft);
+      max-width: 600px;
+      margin: 3rem auto 0;
+      border-top: 4px solid var(--accent-gold);
+    }
+
+    .form-group {
+      margin-bottom: 1.5rem;
+      text-align: left;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-size: 0.9rem;
+      color: var(--text-light);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .form-control {
+      width: 100%;
+      padding: 1rem;
+      border: 1px solid var(--accent-blush);
+      background-color: var(--bg-color);
+      font-family: var(--font-sans);
+      font-size: 1rem;
+      color: var(--text-main);
+      outline: none;
+      transition: border-color 0.3s;
+    }
+
+    .form-control:focus {
+      border-color: var(--accent-gold);
+    }
+
+    select.form-control {
+      appearance: none;
+      background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23c5a059%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
+      background-repeat: no-repeat;
+      background-position: right 1rem top 50%;
+      background-size: 0.65rem auto;
+    }
+
+    /* --- FOOTER --- */
+    footer {
+      background-color: var(--text-main);
+      color: var(--accent-blush);
+      text-align: center;
+      padding: 3rem 0;
+    }
+
+    footer p {
+      font-size: 0.9rem;
+      opacity: 0.8;
+    }
+
+    /* --- ANIMATIONS --- */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+    }
+
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (max-width: 768px) {
+      .hero-names { font-size: 3.5rem; }
+      .countdown-wrapper { margin-top: 0; border-radius: 0; }
+      .events-grid { gap: 2rem; }
+      .rsvp-form-container { padding: 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HERO -->
+  <header class="hero">
+    <div class="hero-pre fade-in">Together with their families</div>
+    <h1 class="hero-names fade-in">
+      Mane <span style="font-family:var(--font-serif); font-style:italic; font-size:0.8em; color:var(--accent-gold);">&</span> Amelie
+    </h1>
+    <div class="hero-date fade-in">Sunday, May 24, 2026</div>
+    <div style="margin-top: 2rem;" class="fade-in">
+      <a href="#rsvp" class="btn">RSVP Now</a>
+    </div>
+  </header>
+
+  <!-- COUNTDOWN -->
+  <div class="container">
+    <div class="countdown-wrapper fade-in">
+      <div class="countdown-grid">
+        <div class="time-box">
+          <span class="number" id="days">00</span>
+          <span class="label">Days</span>
+        </div>
+        <div class="time-box">
+          <span class="number" id="hours">00</span>
+          <span class="label">Hours</span>
+        </div>
+        <div class="time-box">
+          <span class="number" id="minutes">00</span>
+          <span class="label">Minutes</span>
+        </div>
+        <div class="time-box">
+          <span class="number" id="seconds">00</span>
+          <span class="label">Seconds</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- INTRO -->
+  <section class="section-padding container intro fade-in">
+    <div class="divider"><span>❦</span></div>
+    <h2 style="font-size: 2.5rem; margin-bottom: 1rem;">We Invite You to Share in Our Joy</h2>
+    <p>
+      As we embark on this new chapter of our lives, we would be honored by your presence 
+      as we exchange vows and celebrate our love with family and friends.
+    </p>
+  </section>
+
+  <!-- EVENTS DETAILS -->
+  <section class="section-padding events-section">
+    <div class="container">
+      <div class="events-grid">
+        
+        <!-- CHURCH CARD -->
+        <div class="event-card fade-in">
+          <div class="event-icon">💍</div>
+          <h3 class="event-title">The Ceremony</h3>
+          <div class="event-time">11:00 AM</div>
+          <div class="event-location">Surb Gayane Church</div>
+          <div class="event-address">Vagharshapat, Armavir Province, Armenia</div>
+          
+          <!-- MAP EMBED FOR SURB GAYANE -->
+          <div class="map-container">
+            <iframe 
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2983.5784567890123!2d41.0285!3d40.1585!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x406aa7e6c0a0a0a1%3A0x1234567890abcdef!2sSurb%20Gayane%20Church!5e0!3m2!1sen!2sus!4v1600000000000!5m2!1sen!2sus" 
+              allowfullscreen="" 
+              loading="lazy"
+              title="Map of Surb Gayane Church">
+            </iframe>
+            <!-- Note: The coordinates above are approximate for Surb Gayane. For production, get exact embed code from Google Maps -->
+          </div>
+          <div style="margin-top: 1rem;">
+            <a href="https://goo.gl/maps/PLACEHOLDER_LINK" target="_blank" class="btn-outline" style="padding: 0.5rem 1rem; font-size: 0.8rem; text-decoration: none;">Get Directions</a>
+          </div>
+        </div>
+
+        <!-- RESTAURANT CARD -->
+        <div class="event-card fade-in">
+          <div class="event-icon">🥂</div>
+          <h3 class="event-title">The Reception</h3>
+          <div class="event-time">02:00 PM</div>
+          <div class="event-location">Florence Restaurant</div>
+          <div class="event-address">Yerevan, Armenia</div>
+          
+          <!-- PLACEHOLDER FOR FLORENCE RESTAURANT IMAGE/MAP -->
+          <div class="map-container" style="background: url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80') center/cover;">
+            <div style="width:100%; height:100%; background: rgba(255,255,255,0.7); display:flex; align-items:center; justify-content:center;">
+              <span style="font-family: var(--font-serif); font-size: 1.2rem; color: var(--text-main);">Dinner & Dancing to Follow</span>
+            </div>
+          </div>
+          <div style="margin-top: 1rem;">
+            <a href="https://goo.gl/maps/PLACEHOLDER_LINK" target="_blank" class="btn-outline" style="padding: 0.5rem 1rem; font-size: 0.8rem; text-decoration: none;">Get Directions</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- RSVP FORM -->
+  <section id="rsvp" class="section-padding rsvp-section">
+    <div class="container fade-in">
+      <h2 style="font-size: 2.5rem;">Kindly Respond</h2>
+      <p style="color: var(--text-light); margin-top: 0.5rem;">Please reserve your seat by April 24, 2026</p>
+      
+      <div class="rsvp-form-container">
+        <form id="wedding-rsvp">
+          <div class="form-group">
+            <label for="name">Full Name(s)</label>
+            <input type="text" id="name" class="form-control" placeholder="Enter your full name" required>
+          </div>
+          
+          <div class="form-group">
+            <label for="email">Email Address</label>
+            <input type="email" id="email" class="form-control" placeholder="name@example.com" required>
+          </div>
+
+          <div class="form-group">
+            <label for="attendance">Will you be attending?</label>
+            <select id="attendance" class="form-control" required>
+              <option value="">Please select...</option>
+              <option value="yes">Joyfully Accepts</option>
+              <option value="no">Regretfully Declines</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="guests">Number of Guests</label>
+            <select id="guests" class="form-control">
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="message">Dietary Restrictions / Message</label>
+            <textarea id="message" class="form-control" rows="3" placeholder="Any allergies or special requests?"></textarea>
+          </div>
+
+          <button type="submit" class="btn" style="width: 100%;">Send RSVP</button>
+        </form>
+        
+        <div id="success-message" style="display: none; padding: 2rem;">
+          <h3 style="color: var(--accent-gold);">Thank You!</h3>
+          <p>Your response has been recorded.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <h2 style="font-family: var(--font-serif); font-size: 2rem; margin-bottom: 1rem;">Mane & Amelie</h2>
+      <p>With Love, Gratitude, and Joy</p>
+      <p style="margin-top: 1rem; font-size: 0.8rem;">© 2026 Wedding Celebration</p>
+    </div>
+  </footer>
+
+  <!-- SCRIPTS -->
+  <script>
+    // 1. COUNTDOWN TIMER
+    // Set the date we're counting down to (May 24, 2026 at 11:00 AM)
+    const weddingDate = new Date("May 24, 2026 11:00:00").getTime();
+
+    const timer = setInterval(function() {
+      const now = new Date().getTime();
+      const distance = weddingDate - now;
+
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+      document.getElementById("days").innerText = days < 10 ? "0" + days : days;
+      document.getElementById("hours").innerText = hours < 10 ? "0" + hours : hours;
+      document.getElementById("minutes").innerText = minutes < 10 ? "0" + minutes : minutes;
+      document.getElementById("seconds").innerText = seconds < 10 ? "0" + seconds : seconds;
+
+      if (distance < 0) {
+        clearInterval(timer);
+        document.querySelector(".countdown-wrapper").innerHTML = "<h3 style='color:var(--accent-gold)'>The Celebration Has Begun!</h3>";
+      }
+    }, 1000);
+
+    // 2. SCROLL ANIMATION
+    const observerOptions = { threshold: 0.1 };
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, observerOptions);
+
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+    // 3. FORM HANDLING (Demo)
+    document.getElementById('wedding-rsvp').addEventListener('submit', function(e) {
+      e.preventDefault();
+      // Here you would normally send data to a server
+      this.style.display = 'none';
+      document.getElementById('success-message').style.display = 'block';
+    });
+  </script>
+</body>
+</html>
